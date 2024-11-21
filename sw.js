@@ -33,3 +33,15 @@ const APP_SHELL_INMUTABLE = [
   'css/animate.css',
   'js/libs/jquery.js',
 ];
+
+// Instalación del Service Worker y guardado de los archivos necesarios en caché
+self.addEventListener('install', e => {
+
+  const cacheStatic = caches.open(STATIC_CACHE).then(cache => cache.addAll(APP_SHELL));
+
+  // Guardar en caché los archivos inmutables
+  const cacheInmutable = caches.open(INMUTABLE_CACHE).then(cache => cache.addAll(APP_SHELL_INMUTABLE));
+
+  // Esperar a que se guarden todos los archivos en caché
+  e.waitUntil(Promise.all([cacheStatic, cacheInmutable]));
+});
