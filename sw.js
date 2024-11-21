@@ -45,3 +45,26 @@ self.addEventListener('install', e => {
   // Esperar a que se guarden todos los archivos en caché
   e.waitUntil(Promise.all([cacheStatic, cacheInmutable]));
 });
+
+
+// Creación de un proceso para que cada vez que cambie el Service Worker me elimine los cachés antiguos
+self.addEventListener('activate', e => {
+
+  // caches.keys() me devuelve un array con los nombres de los cachés
+  const respuesta = caches.keys().then(keys => {
+    keys.forEach(key => {
+
+      // Si el caché no es igual al caché estático y contiene la palabra 'static' lo elimino
+      if (key !== STATIC_CACHE && key.includes('static')) {
+        return caches.delete(key);
+      }
+
+      // Si el caché no es igual al caché dinámico y contiene la palabra 'dynamic' lo elimino
+      if (key !== DYNAMIC_CACHE && key.includes('dynamic')) {
+        return caches.delete(key);
+      }
+    });
+  });
+
+  e.waitUntil(respuesta);
+});
