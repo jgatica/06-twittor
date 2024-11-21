@@ -1,3 +1,6 @@
+// Imports
+importScripts('js/sw-utils.js');
+
 // En el STATIC_CACHE se guardan los archivos
 // que usualmente no cambian, como los estilos, scripts, documentos HTML, etc.
 // de mi aplicación.
@@ -76,16 +79,25 @@ self.addEventListener('fetch', e => {
     // Verificar si la petición coincide con algún recurso de la caché
     const respuesta = caches.match(e.request).then(res => {
 
-      // Si la respuesta existe en la caché la retorno
-      if (res) {
-        return res;
-      } else {
-        // Si la respuesta no existe en la caché la busco en la red
-        // y si no existe e.request.url me devuelve el valor undefined
-        console.log(e.request.url);
-      }
+    // Si la respuesta existe en la caché la retorno
+    if (res) {
+      return res;
+    } else {
+      // Si la respuesta no existe en la caché la busco en la red
+      // y si no existe e.request.url me devuelve el valor undefined
+      // console.log(e.request.url);
 
-    });
+      // Como la respuesta no existe en la caché la busco en la red
+      // es decir necesito hacer un fetch a ese recurso nuevo
+      return fetch(e.request).then(newRes => {
+
+        return actualizarCacheDinamico(DYNAMIC_CACHE, e.request, newRes);
+
+      });
+    }
+
+
+  });
 
   e.respondWith(respuesta);
 });
