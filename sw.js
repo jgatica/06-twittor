@@ -73,4 +73,19 @@ self.addEventListener('activate', e => {
 //  en este caso `Cache con Network Fallback`.
 self.addEventListener('fetch', e => {
 
+    // Verificar si la petición coincide con algún recurso de la caché
+    const respuesta = caches.match(e.request).then(res => {
+
+      // Si la respuesta existe en la caché la retorno
+      if (res) {
+        return res;
+      } else {
+        // Si la respuesta no existe en la caché la busco en la red
+        // y si no existe e.request.url me devuelve el valor undefined
+        console.log(e.request.url);
+      }
+
+    });
+
+  e.respondWith(respuesta);
 });
