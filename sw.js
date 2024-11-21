@@ -68,3 +68,9 @@ self.addEventListener('activate', e => {
 
   e.waitUntil(respuesta);
 });
+
+//  Implementacion de la estrategia de cache,
+//  en este caso `Cache con Network Fallback`.
+self.addEventListener('fetch', e => {
+
+});
