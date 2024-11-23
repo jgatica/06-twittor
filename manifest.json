@@ -3,6 +3,7 @@
   "name": "twittor para héroes",
   "start_url": "index.html",
   "background_color": "#3498db",
+  "display": "standalone",
   "icons": [
     {
       "src": "img/icons/icon-72x72.png",
