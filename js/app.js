@@ -1,5 +1,13 @@
+var url = window.location.href;
+var swLocation = '/06-twittor/sw.js';
+
 if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('sw.js')
+
+    if (url.includes('localhost')) {
+        swLocation = '/sw.js'
+    }
+
+    navigator.serviceWorker.register(swLocation)
         .then(reg => console.log('Registro de SW exitoso', reg))
         .catch(err => console.warn('Error al tratar de registrar el sw', err));
 }

@@ -17,7 +17,7 @@ const INMUTABLE_CACHE = 'inmutable-v1';
 // El APP_SHELL es un array que contiene todos los archivos
 // que se necesitan para que la aplicación funcione correctamente
 const APP_SHELL = [
-  '/',
+  // '/',
   'index.html',
   'css/style.css',
   'img/favicon.ico',
