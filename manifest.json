@@ -1,6 +1,7 @@
 {
   "short_name": "Twittor",
   "name": "twittor para héroes",
+  "description": "A PWA boilerplate/reference application in React",
   "start_url": "index.html",
   "background_color": "#3498db",
   "display": "standalone",
